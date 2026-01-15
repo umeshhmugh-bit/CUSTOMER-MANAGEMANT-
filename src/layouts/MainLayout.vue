@@ -29,22 +29,12 @@
           <q-btn flat no-caps label="Solutions" class="text-grey-4 nav-link" />
           <q-btn flat no-caps label="Pricing" class="text-grey-4 nav-link" />
 
-          <q-separator vertical dark inset class="q-mx-sm" style="opacity: 0.1" />
-
           <q-btn
             flat
             no-caps
             label="Login"
             :to="user ? '/dashboard' : '/login'"
-            class="text-white"
-          />
-          <q-btn
-            v-if="!user"
-            unelevated
-            rounded
-            label="Get Started"
-            to="/login?mode=register"
-            class="glow-btn px-lg"
+            class="text-white nav-link"
           />
         </div>
 

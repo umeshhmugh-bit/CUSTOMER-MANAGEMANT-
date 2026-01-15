@@ -27,10 +27,10 @@
           <q-btn
             unelevated
             rounded
-            label="Get Started For Free"
+            label="Login"
             class="glow-btn px-xl py-md"
             size="lg"
-            to="/login?mode=register"
+            :to="user ? '/dashboard' : '/login'"
           />
           <q-btn
             outline
@@ -83,6 +83,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useAuthStore } from 'src/stores/auth-store'
+
+const authStore = useAuthStore()
+const user = computed(() => authStore.user)
 
 const mouseX = ref(0)
 const mouseY = ref(0)

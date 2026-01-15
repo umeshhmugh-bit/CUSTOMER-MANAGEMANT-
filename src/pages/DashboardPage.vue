@@ -1,12 +1,39 @@
+<script setup>
+import { computed } from 'vue'
+import { useAuthStore } from 'src/stores/auth-store'
+
+const authStore = useAuthStore()
+
+const firstName = computed(() => {
+  const fullName = authStore.user?.user_metadata?.full_name || 'User'
+  return fullName.split(' ')[0]
+})
+
+const stats = [
+  {
+    title: 'Total Capital',
+    value: '$154,239',
+    icon: 'account_balance',
+    color: 'blue',
+    trend: 14.2,
+  },
+  { title: 'Asset Cycle', value: '4,240', icon: 'rebase_edit', color: 'orange', trend: -1.8 },
+  { title: 'User Engagement', value: '12,502', icon: 'query_stats', color: 'purple', trend: 9.3 },
+  { title: 'Gross Growth', value: '$32,050', icon: 'insights', color: 'green', trend: 28.1 },
+]
+</script>
+
 <template>
   <q-page class="q-pa-md">
     <div class="row q-col-gutter-lg">
       <!-- Welcome Section -->
       <div class="col-12 z-top">
         <div class="text-h4 text-weight-bold text-charcoal q-mb-sm rubik">
-          Welcome back, {{ firstName }}!
+          Welcome back, {{ firstName }}
         </div>
-        <div class="text-subtitle1 text-grey-7">Here's what's happening with your store today.</div>
+        <div class="text-subtitle1 text-grey-7">
+          Comprehensive overview of your enterprise performance and metrics.
+        </div>
       </div>
 
       <!-- Stat Cards -->
@@ -72,7 +99,7 @@
                 v-for="h in [40, 60, 35, 80, 55, 90, 65]"
                 :key="h"
                 class="rounded-borders bg-slate-blue"
-                :style="`width: 8%; height: ${h}%; opacity: 0.8; transition: all 0.5s ease; postion: relative`"
+                :style="`width: 8%; height: ${h}%; opacity: 0.8; transition: all 0.5s ease; position: relative`"
               >
                 <div
                   class="absolute-bottom full-width bg-soft-emerald"
@@ -102,8 +129,10 @@
             <q-icon name="shopping_bag" size="150px" />
           </div>
           <q-card-section>
-            <div class="text-h6 text-weight-bold">Top Products</div>
-            <div class="text-subtitle2 text-grey-4">Best selling items this week</div>
+            <div class="text-h6 text-weight-bold">Performance Leaders</div>
+            <div class="text-subtitle2 text-grey-4">
+              Top performing enterprise assets this period
+            </div>
           </q-card-section>
 
           <q-list class="q-mt-md">
@@ -125,7 +154,7 @@
           </q-list>
 
           <q-card-actions align="center" class="q-pt-lg">
-            <q-btn flat label="View All Products" no-caps class="text-white" />
+            <q-btn flat label="View Advanced Reports" no-caps class="text-white" />
           </q-card-actions>
         </q-card>
       </div>
@@ -141,11 +170,21 @@
             <q-markup-table flat :separator="'none'" class="bg-transparent text-charcoal">
               <thead>
                 <tr>
-                  <th class="text-left text-grey-7">Customer</th>
-                  <th class="text-left text-grey-7">Date</th>
-                  <th class="text-left text-grey-7">Amount</th>
-                  <th class="text-left text-grey-7">Status</th>
-                  <th class="text-right text-grey-7">Action</th>
+                  <th class="text-left text-grey-7 uppercase tracking-wider text-caption">
+                    Entity
+                  </th>
+                  <th class="text-left text-grey-7 uppercase tracking-wider text-caption">
+                    Processing Date
+                  </th>
+                  <th class="text-left text-grey-7 uppercase tracking-wider text-caption">
+                    Net Value
+                  </th>
+                  <th class="text-left text-grey-7 uppercase tracking-wider text-caption">
+                    Operational Status
+                  </th>
+                  <th class="text-right text-grey-7 uppercase tracking-wider text-caption">
+                    Manage
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -179,25 +218,6 @@
     </div>
   </q-page>
 </template>
-
-<script setup>
-import { computed } from 'vue'
-import { useAuthStore } from 'src/stores/auth-store'
-
-const authStore = useAuthStore()
-
-const firstName = computed(() => {
-  const fullName = authStore.user?.user_metadata?.full_name || 'User'
-  return fullName.split(' ')[0]
-})
-
-const stats = [
-  { title: 'Total Revenue', value: '$54,239', icon: 'payments', color: 'blue', trend: 12.5 },
-  { title: 'Transactions', value: '1,240', icon: 'receipt', color: 'orange', trend: -2.3 },
-  { title: 'Active Users', value: '8,502', icon: 'group', color: 'purple', trend: 8.1 },
-  { title: 'New Sales', value: '$12,050', icon: 'trending_up', color: 'green', trend: 24.5 },
-]
-</script>
 
 <style scoped>
 /* Antigravity Styles */
@@ -236,6 +256,10 @@ const stats = [
 }
 .glass-item:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.tracking-wider {
+  letter-spacing: 0.1em;
 }
 
 .rubik {
